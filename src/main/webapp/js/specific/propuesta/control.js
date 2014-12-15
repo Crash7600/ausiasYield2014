@@ -23,29 +23,35 @@ propuestaControl.prototype = new control('propuesta');
 propuestaControl.prototype.getClassName = function () {
     return this.getClassName() + "Control";
 };
-var oPropuestaControl = new propuestaControl('propuesta');
+propuestaControl.prototype.maskarma = function (place, id, oModel, oView) {
+    var thisObject = this;
+    $(place).empty();
+    var oKarmaModel = oModel;
+    oKarmaModel.loadAggregateViewOne(id);
+    /*$(place).append(oView.getPanel("Borrado de " + this.clase, oView.getObjectTable(oDocumentoModel.getCachedPrettyFieldNames(), oDocumentoModel.getCachedOne(), oDocumentoModel.getCachedFieldNames())));*/
+    $(place).append('<div id=\"result\">¿Darle karma positivo?</div>');
+    $(place).append('<a class="btn btn-danger" id="btnvotarSi" href="#">Sí, votar positivo</a>');
+    $('#btnvotarSi').unbind('click');
+    $('#btnvotarSi').click(function (event) {
+        resultado = oModel.duplicateOne(id);
+        oView.doResultOperationNotifyToUser(place, resultado["status"], resultado["message"], resultado["message"], false);
+        return false;
+    });
+};
 
-//propuestaControl.prototype.new = function (place, objParams, oModel, oView) {
-//    var thisObject = this;
-//    $(place).empty();
-//    $(place).append(oView.getPanel("Alta de " + this.clase, oView.getEmptyForm()));
-//    //id must not be enabled
-//    $('#id').val('0').attr("disabled", true);
-//    //soporte de claves ajenas
-//    /*var selector = objParams["systemfilter"].replace('id_', 'obj_');
-//    $('#' + selector + "_id").val(objParams["systemfiltervalue"]).attr("disabled", true);
-//    $('#' + selector + "_button").attr("disabled", true).hide();
-//    var oModelo = "o" + objParams["systemfilter"].replace('id_', '').charAt(0).toUpperCase() + objParams["systemfilter"].replace('id_', '').slice(1) + "Model";
-//    $('#' + selector + '_desc').text(decodeURIComponent(window[oModelo].getMeAsAForeignKey(objParams["systemfiltervalue"])));
-//    //--*/
-//    oView.doEventsLoading();
-//    $('#submitForm').unbind('click');
-//    $('#submitForm').click(function () {
-//        oView.okValidation(function (e) {
-//            resultado = oModel.setOne({json: JSON.stringify(oView.getFormValues())});
-//            oView.doResultOperationNotifyToUser(place, resultado["status"], "Se ha creado el registro con id=" + resultado["message"], resultado["message"], true);
-//            e.preventDefault();
-//            return false;
-//        });
-//    });
-//};
+propuestaControl.prototype.menoskarma = function (place, id, oModel, oView) {
+    var thisObject = this;
+    $(place).empty();
+    var oKarmaModel = oModel;
+    oKarmaModel.loadAggregateViewOne(id);
+    /*$(place).append(oView.getPanel("Borrado de " + this.clase, oView.getObjectTable(oDocumentoModel.getCachedPrettyFieldNames(), oDocumentoModel.getCachedOne(), oDocumentoModel.getCachedFieldNames())));*/
+    $(place).append('<div id=\"result\">¿Darle karma negativo?</div>');
+    $(place).append('<a class="btn btn-danger" id="btnvotarNo" href="#">Sí, votar negativo</a>');
+    $('#btnvotarNo').unbind('click');
+    $('#btnvotarNo').click(function (event) {
+        resultado = oModel.duplicateOne(id);
+        oView.doResultOperationNotifyToUser(place, resultado["status"], resultado["message"], resultado["message"], false);
+        return false;
+    });
+};
+var oPropuestaControl = new propuestaControl('propuesta');
