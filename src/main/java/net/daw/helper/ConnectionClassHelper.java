@@ -20,7 +20,7 @@ package net.daw.helper;
 public class ConnectionClassHelper {
 
     public static String getDatabaseName() {
-        return "ausiasYield2014";
+        return "peliculas";
     }
 
     public static String getDatabaseLogin() {
@@ -28,7 +28,7 @@ public class ConnectionClassHelper {
     }
 
     public static String getDatabasePassword() {
-        return "bitnami";
+        return "opadmin";
     }
 
     public static String getDatabasePort() {
